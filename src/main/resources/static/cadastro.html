@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="js/cadastrocontroller.js"></script>
+    <meta charset="UTF-8">
+    <title>Cadastro de filme</title>
+</head>
+<body>
+<h1>Cadastro de Filme</h1>
+<hr>
+<form enctype="multipart/form-data">
+    <p><label for="titulo">Titulo:</label>
+    <input type="text" id="titulo" name="titulo"/></p>
+    <p><label for="ano">Ano de Lançamento:</label>
+    <input type="text" id="ano" name="ano"/></p>
+    <!--use um select option para gênero-->
+    <p></p><label for="genero">Genero:</label>
+    <input type="text" id="genero" name="genero"/></p>
+    <p></p><label for="poster">Poster:</label>
+    <input type="file" id="poster" name="poster"/></p>
+</form>
+<button onclick="cadastrarFilmePoster()">Cadastrar Filme</button>
+</body>
+</html>
