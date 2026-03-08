@@ -16,6 +16,14 @@ public class Movie {
         return title;
     }
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     public void setTitle(String title) {
         this.title = title;
     }

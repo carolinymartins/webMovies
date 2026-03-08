@@ -20,6 +20,7 @@ public class MovieRestController {
 
     @Autowired
     private MovieRepository movieRepository;
+    @Autowired
     private CategoryRepository categoryRepository;
 
     @GetMapping("test")
@@ -111,7 +112,7 @@ public class MovieRestController {
     public ResponseEntity<Object> getListCategory(@PathVariable(value = "genero") String genero){
         List <Movie> auxlist=new ArrayList<>();
         for(Movie m: movieRepository.getMovies()){
-            if(m.getCategory().toUpperCase().contains(genero.toUpperCase()))
+            if(m.getCategory().getNome().toUpperCase().contains(genero.toUpperCase()))
                 auxlist.add(m);
         }
         if(!auxlist.isEmpty())

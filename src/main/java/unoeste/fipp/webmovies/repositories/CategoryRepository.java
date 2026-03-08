@@ -13,17 +13,15 @@ public class CategoryRepository {
 
         public CategoryRepository() {
             categories.add(new Category("1", "Drama"));
-            categories.add(new Category("2", "Ação"));
-            categories.add(new Category("3", "Comédia"));
-            categories.add(new Category("4", "Terror"));
-            categories.add(new Category("5", "Romance"));
-            categories.add(new Category("6", "Ficção Científica"));
-            categories.add(new Category("7", "Aventura"));
-            categories.add(new Category("8", "Animação"));
-            categories.add(new Category("9", "Documentário"));
-            categories.add(new Category("10", "Fantasia"));
-            categories.add(new Category("11", "Mistério"));
-            categories.add(new Category("12", "Musical"));
+            categories.add(new Category("2", "Romance"));
+            categories.add(new Category("3", "Crime"));
+            categories.add(new Category("4", "Ação"));
+            categories.add(new Category("5", "Musical"));
+            categories.add(new Category("6", "Terror"));
+            categories.add(new Category("7", "Ficção Científica"));
+            categories.add(new Category("8", "Fantasia"));
+            categories.add(new Category("9", "Comédia"));
+            categories.add(new Category("10", "Thriller"));
         }
         public List<Category> getcategories() {
             return categories;
