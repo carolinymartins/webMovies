@@ -4,6 +4,7 @@ function cadastrarFilmePoster(){
         { method: 'POST', body: new FormData(fuser)})
         .then(response=>response.json())
         .then(json=>{
+            console.log(json);
             alert("filme "+json.title+" cadastrado com sucesso!");
             fuser.reset();
         })
@@ -18,7 +19,9 @@ function cadastrarFilme(){
         const movie={};//new Object();
         movie.title=formMovie.titulo.value;
         movie.year=formMovie.ano.value;
-        movie.category=formMovie.genero.value;
+        movie.category = {
+            nome: formMovie.genero.value
+        };
         //alert(JSON.stringify(movie));
         if(enviarFilme(JSON.stringify(movie))) {
             formMovie.reset();
