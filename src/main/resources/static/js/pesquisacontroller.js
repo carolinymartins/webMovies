@@ -16,7 +16,7 @@ function pesquisarFilmesKW(){
 function gerarLinhas(jsonList) {
     let dados="";
     for(let movie of jsonList){
-        dados += `<tr><td>${movie.title}</td><td>${movie.year}</td><td>${movie.category.nome}</td></tr>`
+        dados += `<tr><td>${movie.title}</td><td>${movie.year}</td><td>${movie.category.nome}</td><td><a href="http://localhost:8080/posters/${movie.poster}">ver poster</a></td></tr>`
     }
     return dados;
 }

@@ -4,6 +4,7 @@ function cadastrarFilmePoster(){
         { method: 'POST', body: new FormData(fuser)})
         .then(response=>response.json())
         .then(json=>{
+            console.log(json);
             alert("filme "+json.title+" cadastrado com sucesso!");
             fuser.reset();
         })

@@ -68,24 +68,29 @@ public class MovieRestController {
         }
     }
     @PostMapping("add-movie-poster")
-    public ResponseEntity<Object> addMoviePoster(String titulo, String ano, Category genero, MultipartFile poster){
+    public ResponseEntity<Object> addMoviePoster(String titulo, String ano, String genero, MultipartFile poster){
         if(titulo==null || titulo.isEmpty()) {
             return ResponseEntity.badRequest().body(new Erro("Filme sem título",""));
         }
         else {
+            Category cat = categoryRepository.findById(genero);
+            if(cat == null){
+                return ResponseEntity.badRequest().body(new Erro("Categoria não encontrada",""));
+            }
             try {
                 final String UPLOAD_FOLDER = "src/main/resources/static/posters/";
+                final String UPLOAD_THUMB = "src/main/resources/static/thumbs/";
                 String fileName = poster.getOriginalFilename();
                 File uploadFolder = new File(UPLOAD_FOLDER);
                 if (!uploadFolder.exists()) uploadFolder.mkdir();
                 poster.transferTo(new File(uploadFolder.getAbsolutePath() + "\\" + fileName));
-                Movie movie=new Movie(titulo,ano,genero);
+                Movie movie=new Movie(titulo,ano,cat);
                 movie.setPoster(fileName);
                 movieRepository.getMovies().add(movie);
                 return ResponseEntity.ok().body(movie);
             }
             catch (Exception e) {
-               return ResponseEntity.badRequest().body(new Erro("erro ao gravar o poster",""));
+                return ResponseEntity.badRequest().body(new Erro("erro ao gravar o poster",""));
             }
         }
     }
