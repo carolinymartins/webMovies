@@ -1,5 +1,6 @@
 package unoeste.fipp.webmovies.restcontrollers;
 
+import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -80,13 +81,38 @@ public class MovieRestController {
             try {
                 final String UPLOAD_FOLDER = "src/main/resources/static/posters/";
                 final String UPLOAD_THUMB = "src/main/resources/static/thumbs/";
-                String fileName = poster.getOriginalFilename();
+
+                // Gera nomes únicos para evitar conflitos
+                String originalFileName = poster.getOriginalFilename();
+                String baseName = System.currentTimeMillis() + "_" + originalFileName.replace(".", "_");
+
+                String fileName = baseName + ".jpg"; // Poster original
+                String thumbFileName = baseName + "_thumb.jpg"; // Thumbnail
+
                 File uploadFolder = new File(UPLOAD_FOLDER);
+                File thumbFolder = new File(UPLOAD_THUMB);
+
+                // Cria as pastas se não existirem
                 if (!uploadFolder.exists()) uploadFolder.mkdir();
-                poster.transferTo(new File(uploadFolder.getAbsolutePath() + "\\" + fileName));
-                Movie movie=new Movie(titulo,ano,cat);
+                if (!thumbFolder.exists()) thumbFolder.mkdir();
+
+                // Salva o poster original
+                File posterFile = new File(uploadFolder.getAbsolutePath() + File.separator + fileName);
+                poster.transferTo(posterFile);
+
+                // Gera o thumbnail (200x200)
+                File thumbFile = new File(thumbFolder.getAbsolutePath() + File.separator + thumbFileName);
+                Thumbnails.of(posterFile)
+                        .size(200, 200)
+                        .outputFormat("jpg")
+                        .toFile(thumbFile);
+
+                // Cria o filme com ambos os nomes
+                Movie movie = new Movie(titulo, ano, cat);
                 movie.setPoster(fileName);
+                movie.setThumb(thumbFileName);
                 movieRepository.getMovies().add(movie);
+
                 return ResponseEntity.ok().body(movie);
             }
             catch (Exception e) {

@@ -5,6 +5,7 @@ public class Movie {
     private String year;
     private Category category;
     private String poster;
+    private String thumb;
 
     public Movie(String title, String year, Category category) {
         this.title = title;
@@ -42,5 +43,13 @@ public class Movie {
 
     public void setPoster(String poster) {
         this.poster = poster;
+    }
+
+    public String getThumb() {
+        return thumb;
+    }
+
+    public void setThumb(String thumb) {
+        this.thumb = thumb;
     }
 }

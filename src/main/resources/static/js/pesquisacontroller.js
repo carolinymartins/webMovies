@@ -14,9 +14,26 @@ function pesquisarFilmesKW(){
         .catch(error => {resultado.innerHTML=error})
 }
 function gerarLinhas(jsonList) {
-    let dados="";
-    for(let movie of jsonList){
-        dados += `<tr><td>${movie.title}</td><td>${movie.year}</td><td>${movie.category.nome}</td><td><a href="http://localhost:8080/posters/${movie.poster}">ver poster</a></td></tr>`
+    if (!jsonList || jsonList.length === 0) {
+        return '<tr><td colspan="4">Nenhum filme encontrado</td></tr>';
+    }
+
+    let dados = "";
+    for (let movie of jsonList) {
+        const tdImagem = movie.thumb
+            ? `<td>
+                 <a href="/posters/${movie.poster}" target="_blank">
+                   <img src="/thumbs/${movie.thumb}" style="width:50px; height:auto; border-radius:4px; border: 1px solid #ddd;">
+                 </a>
+               </td>`
+            : `<td>Sem imagem</td>`;
+
+        dados += `<tr>
+                    <td>${movie.title}</td>
+                    <td>${movie.year}</td>
+                    <td>${movie.category?.nome}</td>
+                    ${tdImagem}
+                  </tr>`;
     }
     return dados;
 }
