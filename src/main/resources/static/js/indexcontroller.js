@@ -7,10 +7,4 @@ function carregarFilmeAleatorio(){
               filmeSugerido.innerHTML=`Assista ainda hoje o filme ${movie.title}, lançado em ${movie.year}`;
        }))
        .catch(error => {filmeSugerido.innerHTML=error;})
-
-   //filmeSugerido.innerHTML="Titanic";
-   //fetch api
-   //ajax
-   //jquery
-   //axios
 }

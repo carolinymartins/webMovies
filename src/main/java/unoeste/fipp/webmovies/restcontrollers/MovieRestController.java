@@ -109,17 +109,22 @@ public class MovieRestController {
     }
 
     @GetMapping("list-genre/{genero}")
-    public ResponseEntity<Object> getListCategory(@PathVariable(value = "genero") String genero){
-        List <Movie> auxlist=new ArrayList<>();
-        for(Movie m: movieRepository.getMovies()){
-            if(m.getCategory().getNome().toUpperCase().contains(genero.toUpperCase()))
+    public ResponseEntity<Object> getListCategory(@PathVariable(value = "genero") String genero) {
+        Category category = categoryRepository.findById(genero);
+
+        if (category == null)
+            return ResponseEntity.badRequest().body(new Erro("Gênero não encontrado", ""));
+
+        List<Movie> auxlist = new ArrayList<>();
+        for (Movie m : movieRepository.getMovies()) {
+            if (m.getCategory().equals(category))
                 auxlist.add(m);
         }
-        if(!auxlist.isEmpty())
+
+        if (!auxlist.isEmpty())
             return ResponseEntity.ok().body(auxlist);
         else
-            return ResponseEntity.badRequest().body(new Erro("Nenhum filme encontrado com esse genero",""));
-
+            return ResponseEntity.badRequest().body(new Erro("Nenhum filme encontrado com esse gênero", ""));
     }
 
     @GetMapping("list-year/{anoinicio}/{anofim}")

@@ -26,4 +26,13 @@ public class CategoryRepository {
         public List<Category> getcategories() {
             return categories;
         }
+
+    public Category findById(String id) {
+        for (Category c : categories) {
+            if (c.id().equals(id))
+                return c;
+        }
+        return null;
+    }
+
 }

@@ -7,16 +7,40 @@
 </head>
 <body>
 <h1>Pesquisa por Filmes</h1>
+<select id="filtros" onchange="filtrarFilmes()">
+    <option value="">Busca</option>
+    <option value="titulo">Buscar por Título</option>
+    <option value="genero">Buscar por Gênero</option>
+    <option value="ano">Buscar por Ano</option>
+</select>
+
+<!-- TITULO -->
+<div id="secao-titulo" style="display:none">
+    <input id="keyword" type="text" placeholder="Título do filme"/>
+    <button onclick="pesquisarFilmesKW()">Pesquisar</button>
+</div>
+
+<!-- GENERO -->
+<div id="secao-genero" style="display:none">
+    <select id="genero"></select>
+    <button onclick="pesquisarFilmesGenero()">Pesquisar</button>
+</div>
+
+<!-- ANO -->
+<div id="secao-ano" style="display:none">
+    <input id="anoInicio" type="text" placeholder="Ano início"/>
+    <input id="anoFim" type="text" placeholder="Ano fim"/>
+    <button onclick="pesquisarFilmesAno()">Pesquisar</button>
+</div>
 <hr>
-<input id="keyword" type="text" placeholder="Informe uma chave de pesquisa por títulos de filmes"/>
-<button id="pesquisar" onclick="pesquisarFilmesKW()">Pesquisar filmes</button>
 <table>
     <thead>
-    <tr><th>Título do filme</th><th>Ano de Lançamento</th><th>Gênero</th></tr>
+    <tr><th>Título do filme</th><th>Ano de Lançamento</th><th>Gênero</th><th>Poster</th></tr>
     </thead>
     <tbody id="resultado">
 
     </tbody>
 </table>
+<script src="js/filtroscontroller.js"></script>
 </body>
 </html>

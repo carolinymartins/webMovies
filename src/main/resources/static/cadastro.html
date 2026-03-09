@@ -13,12 +13,13 @@
     <input type="text" id="titulo" name="titulo"/></p>
     <p><label for="ano">Ano de Lançamento:</label>
     <input type="text" id="ano" name="ano"/></p>
-    <!--use um select option para gênero-->
     <p></p><label for="genero">Genero:</label>
-    <input type="text" id="genero" name="genero"/></p>
+    <p><select id="genero"></select></p>
     <p></p><label for="poster">Poster:</label>
     <input type="file" id="poster" name="poster"/></p>
 </form>
 <button onclick="cadastrarFilmePoster()">Cadastrar Filme</button>
+<script src="js/filtroscontroller.js"></script>
+<script>carregaGenero();</script>
 </body>
 </html>

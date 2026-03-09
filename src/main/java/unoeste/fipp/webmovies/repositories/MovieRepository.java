@@ -11,10 +11,8 @@ import java.util.List;
 @Repository
 public class MovieRepository {
     private List<Movie> movies = new ArrayList<>();
-    private CategoryRepository categoryRepository;
 
     public MovieRepository(CategoryRepository categoryRepository) {
-        this.categoryRepository = categoryRepository;
 
         List<Category> categories = categoryRepository.getcategories();
         movies.add(new Movie("Cidadão Kane", "1941", categories.get(0)));

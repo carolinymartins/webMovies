@@ -36,7 +36,6 @@ public class Movie {
         this.year = year;
     }
 
-
     public String getPoster() {
         return poster;
     }
