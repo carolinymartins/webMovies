@@ -1,25 +1,148 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <script src="js/cadastrocontroller.js"></script>
     <meta charset="UTF-8">
-    <title>Cadastro de filme</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Movies - Cadastrar Filme</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="js/filtroscontroller.js" defer></script>
+    <script src="js/cadastrocontroller.js" defer></script>
 </head>
-<body>
-<h1>Cadastro de Filme</h1>
-<hr>
-<form enctype="multipart/form-data">
-    <p><label for="titulo">Titulo:</label>
-    <input type="text" id="titulo" name="titulo"/></p>
-    <p><label for="ano">Ano de Lançamento:</label>
-    <input type="text" id="ano" name="ano"/></p>
-    <p></p><label for="genero">Genero:</label>
-    <p><select id="genero" name="genero"></select></p>
-    <p></p><label for="poster">Poster:</label>
-    <input type="file" id="poster" name="poster"/></p>
-</form>
-<button onclick="cadastrarFilmePoster()">Cadastrar Filme</button>
-<script src="js/filtroscontroller.js"></script>
-<script>carregaGenero();</script>
+<body class="bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen text-white">
+<div class="container mx-auto px-4 py-8">
+
+    <header class="flex items-center justify-between mb-8">
+        <a href="index.html" class="flex items-center space-x-2 hover:opacity-80 transition">
+            <i class="fas fa-film text-3xl text-yellow-400"></i>
+            <h1 class="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-red-500 bg-clip-text text-transparent">
+                WebMovies
+            </h1>
+        </a>
+        <a href="index.html" class="text-gray-300 hover:text-white transition">
+            <i class="fas fa-home mr-2"></i>Voltar ao Início
+        </a>
+    </header>
+
+    <!-- Formulário de Cadastro -->
+    <div class="max-w-2xl mx-auto">
+        <div class="text-center mb-10">
+            <h2 class="text-4xl font-bold mb-4">Cadastrar Novo Filme</h2>
+            <p class="text-gray-400">Compartilhe seu filme favorito com a comunidade</p>
+        </div>
+
+        <div class="bg-gray-800 rounded-2xl shadow-2xl p-8">
+            <form enctype="multipart/form-data" class="space-y-6">
+                <!-- Título -->
+                <div>
+                    <label for="titulo" class="block text-lg font-semibold mb-2 flex items-center">
+                        <i class="fas fa-heading mr-2 text-yellow-400"></i>
+                        Título do Filme
+                    </label>
+                    <input type="text" id="titulo" name="titulo"
+                           placeholder="Ex: O Poderoso Chefão"
+                           class="w-full bg-gray-700 text-white px-6 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"/>
+                </div>
+
+                <!-- Ano -->
+                <div>
+                    <label for="ano" class="block text-lg font-semibold mb-2 flex items-center">
+                        <i class="fas fa-calendar mr-2 text-yellow-400"></i>
+                        Ano de Lançamento
+                    </label>
+                    <input type="text" id="ano" name="ano"
+                           placeholder="Ex: 1972"
+                           class="w-full bg-gray-700 text-white px-6 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 transition"/>
+                </div>
+
+                <!-- Gênero -->
+                <div>
+                    <label for="genero" class="block text-lg font-semibold mb-2 flex items-center">
+                        <i class="fas fa-tag mr-2 text-yellow-400"></i>
+                        Gênero
+                    </label>
+                    <select id="genero" name="genero"
+                            class="w-full bg-gray-700 text-white px-6 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 transition">
+                    </select>
+                </div>
+
+                <!-- Poster -->
+                <div>
+                    <label for="poster" class="block text-lg font-semibold mb-2 flex items-center">
+                        <i class="fas fa-image mr-2 text-yellow-400"></i>
+                        Poster do Filme
+                    </label>
+                    <div class="relative">
+                        <input type="file" id="poster" name="poster"
+                               accept="image/*"
+                               class="w-full bg-gray-700 text-white px-6 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 transition file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-semibold file:bg-yellow-400 file:text-gray-900 hover:file:bg-yellow-500"/>
+                    </div>
+                    <p class="text-sm text-gray-400 mt-2">Formatos aceitos: JPG, PNG, GIF (máx. 5MB)</p>
+                </div>
+
+                <!-- Preview da imagem -->
+                <div id="preview-container" class="hidden mt-4">
+                    <p class="text-sm text-gray-400 mb-2">Preview:</p>
+                    <img id="image-preview" src="#" alt="Preview do poster" class="max-w-full h-48 rounded-lg object-cover"/>
+                </div>
+            </form>
+
+            <!-- Botão de Cadastro -->
+            <div class="mt-8">
+                <button onclick="cadastrarFilmePoster()"
+                        class="w-full bg-gradient-to-r from-yellow-400 to-yellow-500 hover:from-yellow-500 hover:to-yellow-600 text-gray-900 font-bold py-4 px-6 rounded-lg transition duration-300 transform hover:scale-105 flex items-center justify-center space-x-2">
+                    <i class="fas fa-plus-circle text-xl"></i>
+                    <span>Cadastrar Filme</span>
+                </button>
+            </div>
+
+            <!-- Mensagem de Sucesso/Erro -->
+            <div id="mensagem" class="mt-4 hidden">
+                <!-- Mensagens serão exibidas aqui via JavaScript -->
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Preview da imagem
+    document.addEventListener('DOMContentLoaded', function() {
+        // Preview da imagem
+        const posterInput = document.getElementById('poster');
+        if (posterInput) {
+            posterInput.addEventListener('change', function(e) {
+                const file = e.target.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const preview = document.getElementById('image-preview');
+                        preview.src = e.target.result;
+                        document.getElementById('preview-container').classList.remove('hidden');
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        // Carrega os gêneros após o DOM estar pronto
+        // Adiciona um pequeno delay para garantir que os scripts foram carregados
+        setTimeout(function() {
+            if (typeof carregaGenero === 'function') {
+                console.log('Carregando gêneros...');
+                carregaGenero();
+            } else {
+                console.error('Função carregaGenero não encontrada!');
+                // Tenta novamente após mais tempo
+                setTimeout(function() {
+                    if (typeof carregaGenero === 'function') {
+                        carregaGenero();
+                    } else {
+                        document.getElementById('genero').innerHTML = '<option value="">Erro ao carregar gêneros</option>';
+                    }
+                }, 1000);
+            }
+        }, 500);
+    });
+</script>
 </body>
 </html>

@@ -1,46 +1,146 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <script src="js/pesquisacontroller.js"></script>
     <meta charset="UTF-8">
-    <title>Pesquisa por filmes</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Movies - Pesquisar Filmes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="js/filtroscontroller.js" defer></script>
+    <script src="js/pesquisacontroller.js" defer></script>
 </head>
-<body>
-<h1>Pesquisa por Filmes</h1>
-<select id="filtros" onchange="filtrarFilmes()">
-    <option value="">Busca</option>
-    <option value="titulo">Buscar por Título</option>
-    <option value="genero">Buscar por Gênero</option>
-    <option value="ano">Buscar por Ano</option>
-</select>
+<body class="bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen text-white">
+<div class="container mx-auto px-4 py-8">
+    <!-- Header -->
+    <header class="flex items-center justify-between mb-8">
+        <a href="index.html" class="flex items-center space-x-2 hover:opacity-80 transition">
+            <i class="fas fa-film text-3xl text-yellow-400"></i>
+            <h1 class="text-3xl font-bold bg-gradient-to-r from-yellow-400 to-red-500 bg-clip-text text-transparent">
+                Web Movies
+            </h1>
+        </a>
+        <a href="index.html" class="text-gray-300 hover:text-white transition">
+            <i class="fas fa-home mr-2"></i>Voltar ao Início
+        </a>
+    </header>
 
-<!-- TITULO -->
-<div id="secao-titulo" style="display:none">
-    <input id="keyword" type="text" placeholder="Título do filme"/>
-    <button onclick="pesquisarFilmesKW()">Pesquisar</button>
+    <!-- Título da Página -->
+    <div class="text-center mb-12">
+        <h2 class="text-4xl font-bold mb-4">Pesquisar Filmes</h2>
+        <p class="text-gray-400 text-lg">Encontre seus filmes favoritos usando os filtros abaixo</p>
+    </div>
+
+    <!-- Filtros -->
+    <div class="max-w-4xl mx-auto mb-12">
+        <!-- Selector de Filtro -->
+        <div class="flex justify-center mb-8">
+            <div class="bg-gray-800 rounded-lg p-1 inline-flex">
+                <button onclick="document.getElementById('filtros').value=''; filtrarFilmes()"
+                        class="px-6 py-2 rounded-lg transition duration-300 text-gray-300 hover:text-white">
+                    <i class="fas fa-times mr-2"></i>Limpar
+                </button>
+                <select id="filtros" onchange="filtrarFilmes()"
+                        class="bg-gray-700 text-white px-6 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400 ml-2">
+                    <option value="">Busca</option>
+                    <option value="titulo">Buscar por Título</option>
+                    <option value="genero">Buscar por Gênero</option>
+                    <option value="ano">Buscar por Ano</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- Campos de Busca -->
+        <div class="bg-gray-800 rounded-2xl p-8 shadow-2xl">
+            <!-- TITULO -->
+            <div id="secao-titulo" class="space-y-4" style="display:none">
+                <label class="block text-lg font-semibold mb-2">Título do Filme</label>
+                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                    <input id="keyword" type="text" placeholder="Digite o título do filme..."
+                           class="flex-1 bg-gray-700 text-white px-6 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"/>
+                    <button onclick="pesquisarFilmesKW()"
+                            class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-8 py-3 rounded-lg transition duration-300 transform hover:scale-105">
+                        <i class="fas fa-search mr-2"></i>Pesquisar
+                    </button>
+                </div>
+            </div>
+
+            <!-- GENERO -->
+            <div id="secao-genero" class="space-y-4" style="display:none">
+                <label class="block text-lg font-semibold mb-2">Selecione o Gênero</label>
+                <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                    <select id="genero" class="flex-1 bg-gray-700 text-white px-6 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400">
+                        <option value="">Carregando gêneros...</option>
+                    </select>
+                    <button onclick="pesquisarFilmesGenero()"
+                            class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-8 py-3 rounded-lg transition duration-300 transform hover:scale-105">
+                        <i class="fas fa-search mr-2"></i>Pesquisar
+                    </button>
+                </div>
+            </div>
+
+            <!-- ANO -->
+            <div id="secao-ano" class="space-y-4" style="display:none">
+                <label class="block text-lg font-semibold mb-2">Período de Lançamento</label>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Ano Início</label>
+                        <input id="anoInicio" type="text" placeholder="Ex: 2000"
+                               class="w-full bg-gray-700 text-white px-6 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"/>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Ano Fim</label>
+                        <input id="anoFim" type="text" placeholder="Ex: 2024"
+                               class="w-full bg-gray-700 text-white px-6 py-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-400"/>
+                    </div>
+                </div>
+                <div class="flex justify-center mt-6">
+                    <button onclick="pesquisarFilmesAno()"
+                            class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold px-8 py-3 rounded-lg transition duration-300 transform hover:scale-105">
+                        <i class="fas fa-search mr-2"></i>Pesquisar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Resultados -->
+    <div class="max-w-7xl mx-auto mt-12">
+        <div class="flex items-center justify-between mb-8">
+            <h3 class="text-2xl font-semibold flex items-center">
+                <i class="fas fa-film mr-3 text-yellow-400"></i>
+                Resultados da Pesquisa
+                <span id="contador-resultados" class="ml-3 text-sm bg-gray-700 text-gray-300 px-3 py-1 rounded-full hidden">0 filmes</span>
+            </h3>
+
+            <div class="flex space-x-2">
+                <button onclick="mudarVisualizacao('grid')" class="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded-lg transition duration-300">
+                    <i class="fas fa-th-large"></i>
+                </button>
+                <button onclick="mudarVisualizacao('lista')" class="bg-gray-700 hover:bg-gray-600 text-white p-2 rounded-lg transition duration-300">
+                    <i class="fas fa-list"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Container dos resultados -->
+        <div id="resultado" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Os resultados serão inseridos aqui via JavaScript -->
+        </div>
+
+        <!-- Loading spinner (aparece durante as requisições) -->
+        <div id="loading-spinner" class="hidden text-center py-12">
+            <div class="inline-block animate-spin rounded-full h-12 w-12 border-4 border-yellow-400 border-t-transparent"></div>
+            <p class="text-gray-400 mt-4">Carregando filmes...</p>
+        </div>
+
+        <!-- Botão carregar mais (para paginação) -->
+        <div id="paginacao" class="text-center mt-10 hidden">
+            <button onclick="carregarMaisFilmes()" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold px-8 py-3 rounded-lg transition duration-300 inline-flex items-center space-x-2">
+                <i class="fas fa-chevron-down"></i>
+                <span>Carregar mais filmes</span>
+            </button>
+        </div>
+    </div>
 </div>
-
-<!-- GENERO -->
-<div id="secao-genero" style="display:none">
-    <select id="genero"></select>
-    <button onclick="pesquisarFilmesGenero()">Pesquisar</button>
-</div>
-
-<!-- ANO -->
-<div id="secao-ano" style="display:none">
-    <input id="anoInicio" type="text" placeholder="Ano início"/>
-    <input id="anoFim" type="text" placeholder="Ano fim"/>
-    <button onclick="pesquisarFilmesAno()">Pesquisar</button>
-</div>
-<hr>
-<table>
-    <thead>
-    <tr><th>Título do filme</th><th>Ano de Lançamento</th><th>Gênero</th><th>Poster</th></tr>
-    </thead>
-    <tbody id="resultado">
-
-    </tbody>
-</table>
-<script src="js/filtroscontroller.js"></script>
 </body>
 </html>

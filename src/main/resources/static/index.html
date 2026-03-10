@@ -1,17 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
-    <script src="js/indexcontroller.js"></script>
     <meta charset="UTF-8">
-    <title>Web Movies</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebMovies - Catálogo de Filmes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script src="js/indexcontroller.js" defer></script>
 </head>
-<body onload="carregarFilmeAleatorio()">
-<h1>Web Movies</h1>
-<hr>
-<h3>Sugestão de filme: </h3>
-<p id="filme-sugerido"></p>
-<hr>
-<p><a href="pesquisa.html">Pesquisar Filmes</a></p>
-<p><a href="cadastro.html">Cadastre um novo filme</a></p>
+<body class="bg-gradient-to-br from-gray-900 to-gray-800 min-h-screen text-white">
+<div class="container mx-auto px-4 py-8">
+    <!-- Header -->
+    <header class="flex items-center justify-between mb-12">
+        <div class="flex items-center space-x-2">
+            <i class="fas fa-film text-4xl text-yellow-400"></i>
+            <h1 class="text-4xl font-bold bg-gradient-to-r from-yellow-400 to-red-500 bg-clip-text text-transparent">
+                WebMovies
+            </h1>
+        </div>
+        <div class="flex space-x-4">
+            <a href="pesquisa.html" class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-semibold py-2 px-6 rounded-lg transition duration-300 transform hover:scale-105">
+                <i class="fas fa-search mr-2"></i>Pesquisar
+            </a>
+            <a href="cadastro.html" class="bg-gray-700 hover:bg-gray-600 text-white font-semibold py-2 px-6 rounded-lg transition duration-300">
+                <i class="fas fa-plus mr-2"></i>Cadastrar
+            </a>
+        </div>
+    </header>
+
+    <!-- Sugestão do Dia -->
+    <div class="max-w-4xl mx-auto mb-16">
+        <div class="bg-gradient-to-r from-purple-600 to-pink-600 rounded-2xl shadow-2xl p-8 relative overflow-hidden">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-white opacity-10 rounded-full -mr-20 -mt-20"></div>
+            <div class="absolute bottom-0 left-0 w-48 h-48 bg-black opacity-10 rounded-full -ml-16 -mb-16"></div>
+
+            <div class="relative z-10">
+                <div class="flex items-center space-x-2 mb-4">
+                    <i class="fas fa-star text-yellow-400 text-2xl"></i>
+                    <h2 class="text-2xl font-semibold">Sugestão do Dia</h2>
+                </div>
+
+                <div id="filme-sugerido" class="text-3xl font-bold mb-2">Carregando...</div>
+
+                <div class="mt-6 flex space-x-4">
+                    <button onclick="carregarFilmeAleatorio()" class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-6 py-2 rounded-lg transition duration-300">
+                        <i class="fas fa-random mr-2"></i>Outra Sugestão
+                    </button>
+                    <a href="pesquisa.html" class="bg-yellow-400 hover:bg-yellow-500 text-gray-900 px-6 py-2 rounded-lg transition duration-300">
+                        <i class="fas fa-search mr-2"></i>Explorar Catálogo
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cards de Navegação Rápida -->
+    <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+        <div class="bg-gray-800 rounded-xl p-6 hover:bg-gray-700 transition duration-300 transform hover:scale-105 cursor-pointer" onclick="window.location.href='pesquisa.html'">
+            <div class="bg-blue-500 rounded-full w-16 h-16 flex items-center justify-center mb-4 mx-auto">
+                <i class="fas fa-search text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-center mb-2">Pesquisar Filmes</h3>
+            <p class="text-gray-400 text-center">Encontre filmes por título, gênero ou ano de lançamento</p>
+        </div>
+
+        <div class="bg-gray-800 rounded-xl p-6 hover:bg-gray-700 transition duration-300 transform hover:scale-105 cursor-pointer" onclick="window.location.href='cadastro.html'">
+            <div class="bg-green-500 rounded-full w-16 h-16 flex items-center justify-center mb-4 mx-auto">
+                <i class="fas fa-plus text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-center mb-2">Adicionar Filme</h3>
+            <p class="text-gray-400 text-center">Contribua com o catálogo adicionando novos filmes</p>
+        </div>
+
+        <div class="bg-gray-800 rounded-xl p-6 hover:bg-gray-700 transition duration-300 transform hover:scale-105 cursor-pointer" onclick="window.location.href='pesquisa.html?destaques=true'">
+            <div class="bg-purple-500 rounded-full w-16 h-16 flex items-center justify-center mb-4 mx-auto">
+                <i class="fas fa-fire text-2xl"></i>
+            </div>
+            <h3 class="text-xl font-semibold text-center mb-2">Filmes em Destaque</h3>
+            <p class="text-gray-400 text-center">Veja os filmes mais populares do momento</p>
+        </div>
+    </div>
+</div>
 </body>
 </html>
