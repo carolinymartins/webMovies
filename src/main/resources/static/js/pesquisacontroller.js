@@ -159,6 +159,9 @@ function renderizarResultados(filmes) {
         return;
     }
 
+
+
+
     let html = '';
     filmes.forEach((filme, index) => {
         // Pega os valores com os nomes corretos da sua API
@@ -203,10 +206,10 @@ function renderizarResultados(filmes) {
                             </div>
                             
                             ${poster ? `
-                                <a href="/posters/${poster}" target="_blank" 
-                                   class="block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl transition duration-300 text-center mb-2">
-                                    <i class="fas fa-download mr-2"></i>Ver Poster
-                                </a>
+                               <button onclick="abrirPoster('/posters/${poster}')"
+                                        class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-4 rounded-xl transition duration-300 text-center mb-2">
+                                    <i class="fas fa-image mr-2"></i>Ver Poster
+                                </button>
                             ` : ''}
                             
                             <button onclick="verDetalhes(${id})" 
@@ -324,6 +327,15 @@ function mudarVisualizacao(tipo) {
     if (tipo === 'grid') {
         resultado.className = 'grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6';
     }
+}
+
+//popover
+function abrirPoster(src) {
+    const overlay = document.createElement('div');
+    overlay.style.cssText = 'position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.85)';
+    overlay.innerHTML = `<img src="${src}" style="max-height:90vh;max-width:90vw;border-radius:12px"/>`;
+    overlay.onclick = () => overlay.remove();
+    document.body.appendChild(overlay);
 }
 
 // Adiciona animações CSS
